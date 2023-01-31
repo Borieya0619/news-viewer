@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import {useCallback, useState} from 'react';
+import axios from 'axios';
+import NewsList from './components/NewList';
+import Categories from './components/Categories';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = ()=>{
+
+  const [category, setCategory] = useState('all');
+  const onSelect = useCallback(category=>setCategory(category), []); //함수를 렌더링마다 새로 만드는 것이 아닌, 처음 렌더링 될 때만 만듦.
+  return(
+    <>
+      <Categories category={category} onSelect={onSelect}/>
+      <NewsList category={category}/>
+    </>
+  )
+
 }
 
 export default App;
